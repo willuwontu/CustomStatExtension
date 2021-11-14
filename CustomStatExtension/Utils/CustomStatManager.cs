@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace CustomStatExtension.Utils
 {
-    class CustomStatManager : MonoBehaviour
+    public class CustomStatManager : MonoBehaviour
     {
         public static CustomStatManager instance;
 
         private Dictionary<string, object> customStatDefault = new Dictionary<string, object>();
-        private Dictionary<string, Func<object, object, object>> customStatApplyStatsOperation = new Dictionary<string, Func<object, object, object>>();
+        internal Dictionary<string, Func<object, object, object>> customStatApplyStatsOperation = new Dictionary<string, Func<object, object, object>>();
         private List<string> registeredStats = new List<string>();
 
         private void Start()

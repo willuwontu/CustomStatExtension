@@ -2,6 +2,7 @@
 using UnboundLib;
 using UnboundLib.Cards;
 using HarmonyLib;
+using CustomStatExtension.Utils;
 
 namespace CustomStatExtension
 {
@@ -17,6 +18,9 @@ namespace CustomStatExtension
         private const string ModName = "Custom Stat Extension";
         public const string Version = "0.0.1"; // What version are we on (major.minor.patch)?
 
+        public const string ModInitials = "CSE";
+        public static CustomStatExtension instance;
+
         void Awake()
         {
             // Use this to call any harmony patch files your mod may have
@@ -25,7 +29,9 @@ namespace CustomStatExtension
         }
         void Start()
         {
+            instance = this;
 
+            gameObject.GetOrAddComponent<CustomStatManager>();
         }
     }
 }

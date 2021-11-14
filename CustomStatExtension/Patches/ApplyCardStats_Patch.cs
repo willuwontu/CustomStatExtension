@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using HarmonyLib;
 using CustomStatExtension.Utils;
+using CustomStatExtension.Extensions;
 using UnityEngine;
 
 namespace CustomStatExtension.Patches
@@ -10,18 +12,30 @@ namespace CustomStatExtension.Patches
     class ApplyCardStats_Patch
     {
         [HarmonyPrefix]
-        static void CustomStatsApplied(ApplyCardStats __instance, Player ___playerToUpgrade, Gun ___myGunStats, CharacterStatModifiers ___myPlayerStats, Block ___myBlock)
+        static void CustomStatsApplied(ApplyCardStats __instance, Player ___playerToUpgrade, CharacterStatModifiers ___myPlayerStats)
         {
             var player = ___playerToUpgrade.GetComponent<Player>();
-            var gun = ___playerToUpgrade.GetComponent<Holding>().holdable.GetComponent<Gun>();
-            var characterData = ___playerToUpgrade.GetComponent<CharacterData>();
-            var healthHandler = ___playerToUpgrade.GetComponent<HealthHandler>();
-            var gravity = ___playerToUpgrade.GetComponent<Gravity>();
-            var block = ___playerToUpgrade.GetComponent<Block>();
-            var gunAmmo = gun.GetComponentInChildren<GunAmmo>();
-            var characterStatModifiers = player.GetComponent<CharacterStatModifiers>();
+            var stats = player.GetComponent<CharacterStatModifiers>();
+            var registeredStats = CustomStatManager.instance.RegisteredStats.Select((stat) => stat.Key).ToArray();
 
-            //StatDictionary.CopyCustomStats(player, gun, characterData, healthHandler, gravity, block, gunAmmo, characterStatModifiers, ___myGunStats, ___myPlayerStats, ___myBlock);
+            foreach (var stat in ___myPlayerStats.GetCustomStats().stats)
+            {
+                if (registeredStats.Contains(stat.Key))
+                {
+                    try
+                    {
+                        var curr = stats.GetCustomStats().stats[stat.Key];
+
+                        var newVal = CustomStatManager.instance.customStatApplyStatsOperation[stat.Key](curr, stat.Value);
+
+                        stats.GetCustomStats().stats[stat.Key] = newVal;
+                    }
+                    catch (Exception)
+                    {
+                        UnityEngine.Debug.Log($"[CSE] Custom Stat operation failed for player {___playerToUpgrade.playerID}.\n\tCustom Stat: {stat.Key}\n\t\tCurrent Value: {stats.GetCustomStats().stats[stat.Key]} \n\t\tCurrent Type: {stats.GetCustomStats().stats[stat.Key].GetType()}\n\t\tIncoming value: {stat.Value}\n\t\tIncoming Type: {stat.Value.GetType()}");
+                    }
+                }
+            }
         }
     }
 }
