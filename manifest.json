@@ -1,0 +1,11 @@
+{
+	"name":"CustomStatExtension",
+	"author_name":"willuwontu",
+    "version_number":"0.0.1",
+	"website_url":"https://github.com/willuwontu/CustomStatExtension",
+	"displayName":"Custom Stat Extension",
+	"description":"Eases sharing of stats created by modders.",
+	"dependencies": [
+		"BepInEx-BepInExPack_ROUNDS-5.4.1100"
+	]
+}

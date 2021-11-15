@@ -1,6 +1,4 @@
 ﻿using BepInEx;
-using UnboundLib;
-using UnboundLib.Cards;
 using HarmonyLib;
 using CustomStatExtension.Utils;
 
@@ -31,7 +29,7 @@ namespace CustomStatExtension
         {
             instance = this;
 
-            gameObject.GetOrAddComponent<CustomStatManager>();
+            gameObject.AddComponent<CustomStatManager>();
         }
     }
 }

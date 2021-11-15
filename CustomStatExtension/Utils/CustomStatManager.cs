@@ -7,7 +7,10 @@ namespace CustomStatExtension.Utils
 {
     public class CustomStatManager : MonoBehaviour
     {
-        public static CustomStatManager instance;
+        /// <summary>
+        /// Static reference of the class for accessiblity purposes.
+        /// </summary>
+        public static CustomStatManager instance { get; private set; }
 
         private Dictionary<string, object> customStatDefault = new Dictionary<string, object>();
         internal Dictionary<string, Func<object, object, object>> customStatApplyStatsOperation = new Dictionary<string, Func<object, object, object>>();
@@ -19,7 +22,7 @@ namespace CustomStatExtension.Utils
         }
 
         /// <summary>
-        /// 
+        /// Registers a stat for automated usage.
         /// </summary>
         /// <param name="name">The name of the stat.</param>
         /// <param name="defaultValue">The default value the stat should have on the player.</param>
