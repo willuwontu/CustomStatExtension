@@ -22,7 +22,7 @@ namespace CustomStatExtension.Utils
         }
 
         /// <summary>
-        /// Registers a stat for automated usage.
+        /// Registers a stat with the Custom Stat Manager for automated usage.
         /// </summary>
         /// <param name="name">The name of the stat.</param>
         /// <param name="defaultValue">The default value the stat should have on the player.</param>

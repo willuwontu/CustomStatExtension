@@ -7,7 +7,9 @@ Makes it easy to share custom stats between different mod creators without forci
 
 This manager provides the various utilities needed for creating and utilizing custom stats.
 
-By using `CustomStatExtension.Utils.CustomStatManager.instance.RegisterStat()` it's possible to register a custom stat that will automatically be transferred between cards, 
+By using `CustomStatExtension.Utils.CustomStatManager.instance.RegisterStat()` it's possible to register a custom stat that will automatically be transferred from a card to a player in `ApplyCardStats`.
+
+In `SetupCard`, `statModifiers.GetCustomStats().stats` will access a `Dictionary<string, object>` of all the registered custom stats. In `OnAddCard`, `characterStats.GetCustomStats().stats` functions similarly, save that it's the current value of each custom stat on the player.
 
 <details>
 <summary>Properties</summary>
@@ -25,6 +27,7 @@ ReadOnlyDictionary<string, object> RegisteredStats { get; }
 ```
 #### Description
 The currently registered stats and their default values.
+</details>
 
 <details>
 <summary>Functions</summary>

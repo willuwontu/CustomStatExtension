@@ -4,8 +4,6 @@ using CustomStatExtension.Utils;
 
 namespace CustomStatExtension
 {
-    // These are the mods required for our mod to work
-    [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     // Declares our mod to Bepin
     [BepInPlugin(ModId, ModName, Version)]
     // The game our mod is associated with
